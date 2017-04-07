@@ -1,0 +1,122 @@
+Dom scripting:
+
+js is not the dom.
+
+The dom is implemented in js.
+
+Js: languaje: weakly types, prototype based with first class functions
+
+html: is a document format based on sgml used to describe the elements of a hypertext document.
+
+A languaje-neutral interface that allows programs to dynamilacally access and update content structure and style of documents
+
+hacemos click en la pagina:
+hacemos una request http al server pidiendo todo el contenido
+El server responde con todo el codigo.
+el dom procesa el html y genera elementos de documentos.
+cuando encuentra el script tag lo tokeniza, lo parsea y lo ejecuta.
+cierra todos los tags.
+javascritp == ecmascript(Sería como un standar) == JScript
+
+Es dinamico: La compilacion y la ejecicion pasan juntas.
+No hay distingsion entre la memoria que se usa para el codigo y para la ejecucion
+
+Es wkly typed: que podes crear una variable y asgnarle culquier valor de cualquier tipo. 
+El type viaja con el valor.
+
+Es protoype based.
+
+el dom es una representacion javascript del html y el browser.
+
+Otros primero hay que compilarlos .
+
+
+*----------------
+
+Datatypes:
+2 categorias
+
+primitive types:
+- undefined ---> undefined     (un puntero que no fue seteado todavía)
+- Null 		---> null 	(Refiere al puntero null. Generalmente es seteado manualmente)
+- Boolean	---> true
+- String	---> "hello"
+- Number	---> 2
+
+composite types
+- Object 	---> {name:"name"}
+- Array		---> [1,2,3]
+- Date 		---> new Date()
+- RegExp 	---> /*.*/g,
+- Function 	---> function(){}  (son "first class" en js.)
+
+What about NaN? this is ES6. Check later.  NaN is a Number.funny.
+
+
+Operators:
+var, new, assignment, delete (delete foo.bar / ), member (foo.bar or foo["bar"]), call (invocar funciones), camparison (== === / tienen diferencias de performance);
+
+
+how things are assigned in memory
+
+var str = "Hi";
+
+str point to adress where "hi" is  (una direccion de memoria apunta a otra)
+
+obj.txt = "hi" / Crea un puntero que se llama .txt y apunta al valor "hi"
+
+
+la declaracion de variables van a en la call stack (str y obj) 
+
+
+--------Delete keyword-----
+
+var me = { name: {first:"justin"} }
+var name =  me.name;
+delete me.name
+name.first ahora es "justin" porque apuntaba a lo mismo. Lo que hace delete es borrar la referencia de a donde apunta.
+
+Podes borrar la referencia pero no el objeto al que apunta, si nada apunta al objeto despues es garbage collected.
+No podes borrar la variable del call.
+
+si retorna true es porque pudo borrar el puntero. Si retorna false no podes.
+ESTAS ELIMINANDO LA REFERENCIA A LA VARIABLE/OBJETO PERO NO LA VARIABLE/OBJETO EN SI.
+
+Type of:
+
+- undefined ---> undefined
+- Null 		---> object
+- Boolean	---> boolean
+- Number	---> number
+- String	---> "hello"
+- function  ---> function
+- Object 	---> {name:"name"}
+- array		---> object  ---> porque es como un objetos pero con indices ya establecido.
+- any other object--> object
+
+Las variables se ponen en un call object.
+
+== y ===
+
+
+undefined == null   -> esto da true aunque sea de 2 tipos diferentes
+{} === {} es false (WHY?)
+NaN === NaN ---> false
+
+
+El resultado del === va a depender de tipo de variable que estemos comparando.
+Si estamos comparando variables primitivas, se comparan POR VALOR.
+Osea, si el tipo y el valor de la variables son iguales (No importa en que sector de memoria esten almacenados)
+
+En el caso de que comparemos composive types, se comparan POR REFERENCIA
+Va a checkear la "direccion de momeria en donde estan". Esta almacenados en la misma direccion de memoria?
+pasar un valor por referencia o por valor.
+
+== tiene un impacto en la performance. Tratar de no usar poruqe empieza a comparar un monton de coss como una maquina de estados.
+
+--------------
+
+Si yo paso un objeto a una funcion lo paso por referencia.
+
+
+

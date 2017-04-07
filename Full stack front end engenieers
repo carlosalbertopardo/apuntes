@@ -1,0 +1,117 @@
+Full stack front end engenieers
+
+How does the internet work?
+
+Introducing domains.
+www.google.com
+frontendmasters.com  esos son dominiops.
+domain: jemyoung.com.   un subdomain seria blog.jemyoung.com
+
+Son alias (Faciles de recordar ) de numeros de ip: que sería Internet Protocol.
+ej: 127.0.0.1
+
+DNS: 
+Phonebook. Liga las direccioones con los nombres.
+Siempre tienen que tener seguridad.
+
+
+usar vim
+
+Servers.
+una pc generalmente sin GUI. usa command lines.
+
+Logging into server.
+
+
+student@45.55.24.145   Se lee "student at 45.55.24.145".
+
+SSH?
+Secure login shell.
+podes loguearte con un suser y password o usar una clave "ssh"
+Que problema tieneloguearte con pass? Alguien puede usarlo. para entrar.
+
+Public key autenticaticion
+Public key es la que metes en el server (Siempre vive ahi). podes darsela a cualquiera.
+La private key. se queda en la pc.
+Todos los mensajes son encriptados con tu clave publica y
+solo tu clave privada puede leer los mensajes encriptados con tu clave publica.
+
+Para generar el par de claves public y private:
+"ssh-keygen -t rsa"
+
+ssh-key
+
+Es muy dificil hackearla.
+
+
+NO perder la clave privada. Si la perdes cagaste.
+
+VPS & cloud computing.
+
+Server: Es una caja boba sin proposito enun principio. Puede ser cualquier server.
+
+Web server:
+Dataserver:
+Storage Server:
+
+2 Tipos de server.
+Dedicated server. Es mio y puedo hacer lo que quiera con él.generalmente no se hace porque es muy caro
+
+Un VPS:
+Agarra un servidro dedicado y lo divide en partes que podemos usar. Muy escalable la cantidad de server que puedo comprar.
+
+The cloud son un monton de servers en algun lugar.
+
+Ventajas de la nube:
+Flexible, scalable (Si necesito mas memoria la puedo pedir o comprar) y on demand (Puedo cancelar la suscriptcion)
+
+El limite maximo de un vps es obviamente el tamaño del server.
+
+Providers:
+-AWS. Muy poderoso. se pueden construir muchas cosas pero es poco user friendly.
+-Rackspace.
+-Digital Ocean. Mas user friendly.
+
+Buy a VPS:
+www.digitalocean.com
+Tenes que elegi un server que tengas cerca por la lattency.
+
+PAra agregar la clave al server tenes que agregar la clave que generaste: LA PUBLICA que termina en .pub:
+$ cat ylarutadondeteneslakey  (Ni idea que es cat... googlear.)
+Despues copiamos la clave y la pegamos en el campo de texto.
+Ponerle un nombre y te crea el "droplet" (server?).
+
+Recordar de vez en cuando hacer un backup del server.
+Si te fijas, te va a dar una direccion de ip.
+
+Y ahora nos tenemos que logear en el servidor.
+
+ssh -i(Quiere decir identidad) ~/.ssh/my_key root@$YOUR_SERVER_IP
+
+pwd me dice donde estoy parado:
+
+ej:  ssh -i my_key root@159.203.234.250
+
+comando "top".
+
+Te tira una tabla donde te muestra todos los servicios que tenes corriendo.
+tambien poder instalar htop que es mas lindo.
+para salir apretas "q"
+
+
+Setear nuestro servidor.:
+
+apt-get update. actualizacion de paquetes de software.
+
+adduser $USERNAME 
+
+sudo = superuser: "super user do", es el root.
+
+Agregar un usuario al usergroup sudo.
+usermod -aG(Agregar al grupo) sudo
+
+su USUARIO -> cambia de usuario "switch user"
+
+sudo !!  -> te realiza el ultmimo comando que metiste como sudo. Te evita de repetir todo.
+
+exit -> salir del server.
