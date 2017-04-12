@@ -213,3 +213,16 @@ NEW = function (constructor, args) {
 	return o;
 }
 
+Object.create. Que hace?
+
+le pasamos como parámetro el objeto del cual queremos heredar y los metodos adicionales que queremos como segundo parametro.
+
+Por que no usarlo?
+- Es mas slower que usar el new
+
+Primero llama al new, despues llama al proto de nuevo.
+
+
+-------------JQUERY!------------
+
+Jquery functional utilities.

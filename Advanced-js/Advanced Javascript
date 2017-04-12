@@ -1,0 +1,379 @@
+Resumen de curso de Advanced js.
+
+
+Scope: where to look for things.
+
+Al hablar de scope tenemos que hacernos 3 preguntas:
+Que es lo que buscamos? buscamos variables.
+Donde existe? donde fue declarada.
+Quien busca?.
+
+Javacript solo tiene solo tiene "function scope", scopes dentro de funciones
+No tiene block scope, salvo que usemos declaremos las variables con "let" en las nueva version (ES6)
+
+
+Cuando js encuentra una declaración, pregunta en que scope esta:
+
+var foo = "bar" // Aca estamos parados en el global scope;
+
+function bar() {
+	var foo = "baz";  // En este caso estamos en el scope de la funcion bar()
+}
+
+function baz(foo) { // El foo es una declaracion tambien, de un parámetro.
+	foo = "baz";
+	bam = "yay";
+}
+
+
+Caracteristicas de Javascript:
+1) Tener en cuenta que javascript es un lenguaje compilado, pero se compila cada vez que lo corremos y lo revisa todo el codigo para compilarlo.
+2) Javascript es interpretativo. Va de arriba para abajo. 1 linea a la vez
+
+En tiempo de compilación, js va a buscar declaraciones de variables.
+
+Compilation terminology:
+LHS Left hand size. Lo cual es comunmente llamado "TARGET"
+RHS Right hand size. Lo que es el "SOURCE VALUE OF AN ASSIGNMENT"
+
+TIEMPO DE COMPILACIONS
+
+function nomber() {  <-- encontre un LHR  donde se declara una función. Copado
+	nombre = "Carlos";
+	var nombre; <-- encontre un LHR  donde se declara una variable llamada nombre. Copado.
+}
+
+
+En tiempo de ejecucion, al usar una variable se le pregunta al scope si hay una variable creada con ese nombre.
+
+function nomber() {
+	nombre = "Carlos"; <-- bien, una RHS que asigna un valor a una variable carlos. Ya estaba creada?
+	var nombre;		       Si. La vi en tiempo de compilacion	
+}
+
+Js primero se pregunta en el scope local si encuentra esa variable. En el caso de no encontrarla, se pregunta en elscope global. Si no estamos en stric mode y asignamos una variable a un valor, se declara automaticamente en el global, lo cual puede llegar a ser un problema ya que se quizas se estarían declarando variables globales que no teníamos previstas.
+
+Diferencia entre  undefined y undelcared
+
+undelcared -> no fue declarada. Con esto decimos que no fue declarada con "var" o "let" (uninitialized)
+undefined -> No se le especifico un "tipo" de valor. Estamos preguntando por el contenido o el tipo de dato al que apunta.
+
+Tener en cuenta que "undefined" es un valor, así como "null".
+
+En el caso de los parametros, tener en cuenta que se declaran implicitamente.
+
+function baz(foo) { // El foo es una declaracion tambien, de un parámetro.
+	foo = "baz";  //si la declaro aca, ya esta definida en el parametro y se ignoar
+	bam = "yay";
+}
+
+Shadowing (O sobrescritura de varialbes) si estas en un scope local, no podes acceder a una variable fuera, salvo con window.
+
+
+En el caso de que no encontrar una funcion definida como un "baz()", me tira un "reference error". No me la crea porque es una RHS. Y como se que es una RHS? porque no es una RLS...
+
+
+
+function expresions y declaration
+
+function es la primer palabra del statement. 
+
+function blabla() {} -> es una declaration
+
+var foo = function pepe () {} es una function expresion -> es una name fuction expresion  
+
+puedo llamarlo foo().
+
+
+Funciones Anónimas:
+
+var foo = function () {} -> es anónima
+
+Problemas: 
+- No tenemos nombre para referirnos a nosotros dentro de la funcion (no es this)
+- Si tenes un error en produccion: no esta bueno para debagguar
+- Si le pones nombre se documenta en el codigo.
+
+Siempre hay que ponerles nombre: buena practica. Incluso a las IIFE.
+
+
+Diferencias de Scope:
+
+"El try catch tiene block scope"
+
+Lexical scope y Dynamic scope:
+
+Dynamic scope: Recorre todos los scopes hermanos antes de ir al global (Lo usa bash, pearl).
+Lexical: El compilador decide cual es el scope. Sabes siempre cual es el scope, no cambia. Siempre vas del mas especifico hasta el global.
+
+Eval: Es una forma de engañar al lexical scope (NO USAR)
+- previene las optimisaciones, el codigo empieza a funcionar mas lento
+- No hace optimisaciones de scope.
+- En strict mode supestamente mete los eval en su propio scope 
+https://www.w3schools.com/jsref/jsref_eval.asp
+
+
+Al usar set time out, separar la funcion, es decir, englobar el callback en un fucntion(), sino funca como un eval, porque no lo ve declarado en la compilacion.
+
+palabra reservada "with" ojo con la creacion de variables globales.
+No utilizarla
+
+
+/*  */
+
+
+IFFE pattern
+"inmediately invoked function expression" -> Se invoca a si misma automaticamente.
+La encapsulamos para hacerla una expression.
+los parentesis del final ejecutan la funcion inmediatamente.
+
+(function () {})()
+
+Nos sirve para evitar "global collitions".
+Solo una funciones necesarias de ser global, la adjuntar al objeto window. el resto pasa a ser privada.
+
+
+Se puede pasar el window object y lo llamas global, o pasas el jQuery y lo llamas $ para estar seguro.
+(function (arguments) {
+	adasdasd
+})(paramenters);
+
+tambien se puede hacer: 
+(function (arguments) {
+	adasdasd
+}(paramenters));  ->> pero es lo mismo, solo cambia la gramatica.
+
+
+
+EJ:
+
+(function ($, global) {
+
+	//All your code
+	
+})(jQuery, window);
+
+
+Block scope: let.
+Si encuentra un let, lo attachea al bloque donde este definido
+Feneralmente se usa en los loops para los indices i: let i -> ya que solo lo voy a usar en el for loop.
+En el escope de bloque se attachea a todo lo que este entre {} -> puede ser un if, un for, un switch...
+
+problemas del let:
+1) El let no HOISTEA (Does not hoist). Debemos declararlo antes de usarla.
+2) Hay que pensar de otra manera, ser mas cuidadosso al mover bloques.
+
+t blocks:
+
+let ( baz = foo ) {
+	console.log(baz); //ok!
+}
+console.log(baz) // no funca -> es una forma de poner mas explicito que estas laburando en un bloque
+ESTA NO FUNCIONA!!! LA SACARON DE ES6!!!!
+
+TRACER (es de google, un tarnspiler.) -> es6 to es5 -> transforma los let blocks a un try catch.
+
+/* Dinamic scope */
+
+no se fija donde el codigo se escribio sino que se fija en la "call stack". Las funciones que va llamando 
+author desition vs runtime desition.
+
+whats the type of scoping rule(s) does javascript have
+Javascript tiene lexical 
+what different ways you can create a scope;
+what is the difference between undeclared and undefined
+
+Hoisting:
+Un término inventado para mostrar el comportamiento en js.
+Primero encontramos las declaraciones y las movemos arriba del scope dente estamos (a esto se le llama hoisting)
+
+Las function expresions NO se hoistean:
+
+var a  = function () {
+	return b;
+}
+
+Primero se hoistea a; y despues en el codigo se hace la asignacion.
+Las funciones se hoistean antes que las variables (las funciones se ponen mas arriba).
+
+Por que hace esto?
+Recursion es cuando una funcion se llama asi misma.
+Mutual recursion: 2 o mas funciones llamandose entre si.
+No seria posible en un lenguaje sin hoisting, porque siempre tendria que ???
+
+lets do not hoist?
+Si, hoistean pero tirarn un error de referencia. temporal dead zone.???
+
+
+"This keyword".
+Toda funcion mientras se ejecuta, tiene una referencia al "contexto donde se ejecuta" (donde se ejecuta la funcion y como): con this
+4 reglas de como se liga la palabra this. Estas reglas dependen del callsite, el cual es el bloque entre {} donde se ejecuta la funcion
+
+
+Regla N°1: default binding rule // la de menor preferencia
+cuando solo invocamos una funcion
+function foo() {
+	console.log(this.baz)
+}
+
+foo();
+si estamos en strict mode default of "this" es undefined.
+si no estamos en stric, default of this es el global object. (window)
+
+2) Implicit binding rule // segunda en orden de preferencia.
+En javascript todo es una referencia a un objeto o funcion
+
+o2 = {bar:"bar2", foo: foo};
+o2.foo() -> "bar2"; this seria o2 porque seria como que te quedas en el scope de la referencia al objeto. cuando hay un objet reference en el callsite.
+
+3) explicit binding rule.
+si usamos .call o .apply
+si en lugar de usa foo() usas foo.call(obj) el this es el objeto dentro de la function. call y apply son cosas diferentes pero en cuanto al thi funciona asi.
+
+hardbinding dejar fijo en this en un objeto orig = foo... referenciar el objeto original ???
+
+pollyfill:
+crear funciones que funcionan en es5 en exploradores mas viejos.
+
+4) this: new
+function foo() {
+	this.baz = "baz";
+	console.log(this.bar); undefined
+	console.log(baz); undefined
+}
+
+var bar = "bar"
+
+javascript no tiene clases. y new no tiene que ver con instanciar clases aca.
+or precedencia
+la convierte a una funcion en un constructor call:  //el new tiene may
+modificacion de como es llamada:
+va a hacer 4 cosas:
+1) un nuevo objecto se crea de la nada
+2) ese objeto se linkea a un nuevo objeto (???)
+3) ese nuevo objeto queda ligado al this de la funcion.
+4) si esa funcion no retorna nada, implicitamente retornara "this".
+
+4 preguntas que tengo que ahcer sobre el this (en orden):
+1) se llamo con new??
+2) se llamó con call o apply? explicti binding
+3) hay una implicit binding rule?
+4) sino preguntar si estamos en strict o no. default rule
+
+Closures
+is when a function remembers  its lexical scope even when the function is executed outside that lexical scope.
+puedo trasladar una funcion a otro lado pero se va a ejecutar el scope en donde esta inicializada.
+Es un link al scope en donde fue definida, tener en cuenta que no es un snapshot del momento donde se creo, si el valor cambia se muestra el ultimo valor.
+se puede poner una iffe en un loop para guardar la i.
+
+el mismo resultado se puede hacer usando let i en lugar de var i.
+
+Clasic module pattern. 2 caracteristicas
+1) Tiene que haber una funcion exterior que la ejecute y englove (no hace falta que sea un iffe).
+2) tiene que haber al menos una funcion interior que sea retornada y que tenga su scope privado
+
+var foo = (function() {
+	var o = {bar: "bar"};
+
+	return {
+		bar: function() {
+			console.log(o.bar)
+		}
+	};
+
+}
+
+foo.bar();
+
+esto se usa para hacer modulos. no son clases.
+generalmente se trata de dejar publico lo menos posible, solo un llamado.
+
+modify module pattern.
+
+modern module pattern:
+define("foo", function() {
+	var o= {bar:"bar"}
+	return {
+		bar: function() {
+			console.log(o.bar)
+		}
+	};
+});  ->> no tiene la parte de ejecucion porque seria como una libreria.
+
+ES6 module pattern.
+foo.js
+var o = {bar: "bar"};
+
+export function bar () {
+	return o.bar
+}
+ import....  puedo importar la libreria entera o una sola funcion.
+
+revisar el video de Quiz de closures. tiene respuesta muy copadas y la ejercitacion de modulos.
+
+
+
+Prototype: Object orientes javascript.
+
+
+every single ofject is built by a constructor function (Constructor call).
+each time a constructor is called, a brand new object is created.
+a constructor makes an object that is liked to its own prototype.
+
+__proto__ nos marca un link al objeto??
+
+Object.getPrototypeOf(a1) === 
+a1.__proto__  a este se le dice dunder proto. es una funcion getter. Retorna el likeage de prototype.
+es la propiedad PUBLICA. es lo mismo que el [[Prototype]] pero publica. Parece que no funca en ie < 6
+
+Object.getPrototypeOf(a1) tambien retorna lo mismo que __proto__.
+Para exploradores viejos se puede llamar a a2.constructor.prototype
+
+.prototype es writeable.
+
+Revisar el grafico que arma en la pantalla de los constructor y los prototypes.
+
+Beneficios de prototype linkeage, podemos acceder a las propiedades de los que estan linkeados y manteniendo el "this" como el objeto donde estoy parado.
+
+Object.create -> crea un objeto nuevo y lo linkea(solo los primero pasos del new)
+
+Constructor No significa que fue construido por ella, es solo un nombre arbitrario.
+
+What is a constructor.
+
+
+REvisar la quiz. tiene preguntas copadas : constructor, [[Prototype]]
+
+
+Excercise
+
+hace el mismo ejercicio anterior pero con prototype.
+
+desing patterns...
+- El el classical inheritance, cuando hablamos de inheritance en readidad estamos copiando.
+
+- En prototypal inheritance, las flechas van de la derecha a la izquierda.
+
+no se habla de inheritance sino de behavior delegation.
+
+OLOO
+Object Linked to Other Objects. linkea los objetos con object.create.
+
+entonces, lo que las clases hacen es COPIAR, como si vos estuvieras construyendo un edificio con esa blueprint. Si despues cambio la clase despues, no afecta a los hijos digamos. Cuando usas prototype, con el delegation desing pattern si cambio algo despues afecta a los hijos.
+
+Despues viene el exercise 4.
+
+Async Patterns:
+
+Callbacks:
+callback hell problems:
+inversion control. perdemos control de nuestro programa al darle la funcionalidad a una libreria externa para que ejecute parte del programa.
+Como resolverlo?
+
+Generators
+es de ES6. es una funcion que puede pausarse y.  revisar el yield y el next(). demasiado nuevo.
+
+Promises.
+Llamo a una funcion y espero un resultado. la funcion me dice que no la puede completar ahora pero lo va a hacer en un futuro.
+Continuation events: llamar un evento cuando la funcion se complete.
+then, then , then. Nos da una sintaxis bastante sincronica para una implementacion asincronica.

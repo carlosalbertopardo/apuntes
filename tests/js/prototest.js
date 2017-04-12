@@ -17,10 +17,8 @@ Animal.prototype.eats = function () {
 
 Animal.prototype.age = 22;
 
-
 var perro = new Animal('jorge');
 
 //console.log(dog.__proto__.hasOwnProperty('toString'));
-
 
 console.log(perro);
