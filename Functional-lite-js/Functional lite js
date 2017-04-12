@@ -1,0 +1,193 @@
+Functional lite js.
+
+functional light programming:
+
+Really powerful tool.
+
+Pure Functions
+Composition
+Immutability
+Closure
+Recursion
+List transformation (Map).
+List Exclusion (Filter).
+List composition (Reduce).
+List Iteration (forEach).
+
+side effects. Cambiamos algo del programa indirectamente.
+Tenemos que sacar la moyoria de ellos.
+
+Todas deberian ser funciones puras, pero siempre en un codigo tenes un monton de funciones impuras.
+
+
+Nunca dejas algo impuro publicamente, las metes adentro de una funcion pura
+
+pure: significa que no tiene side effects.
+Significa que no CAMBIA ningun dato externo, pero si puede acceder.
+Se hace encapsulado el universo entero de la funcion(Que no se modifiquen variables globales.).
+
+Si un programa siempre fuera puro no tendría ni input ni output.
+hay que nivelar.
+
+para que sea pura tenes q reotrnar un array o un objeto ya que solo podes retornar un valor
+
+
+Volver "pura" una funcion, es decir que no tenga sideeffects, que no me modifique nada del exterior de la variable.
+La idea de programacion funcional es tratar de hacer todas las funciones puras.
+
+
+Manual composition.
+Trata sobre tomar el output de una funcion y ponerla en el input de otra funcion.
+Ya lo venimos haciendo. No nos damos cuenta pero nos reduce los side effects, es decir que si 
+estaoy haciendo un retorno a una variable y despues cambio el resultado de esa var, sería impura.
+
+Podemos crear funciones que compongan funciones pasando funciones como parámetros.
+
+closures are very important to functional programming, pero no es solo para functional programming.
+
+Inmutability.
+Not able to mute.
+
+
+const pepe = 20;
+pepe++ -> no puedo hacer esto
+
+const no quiere decir que tenga VALORES inmutables, sino que es una AGINACION inmutable (o inmutable binding)
+
+const z = [4,5,6];
+z = 10; no se puede
+z[0] = 8 si se puede porque estoy apuntando al mismo objeto.
+
+
+primitive strings y numbers son inmutables. no se los puede cambiar.
+
+const w = Object.freeze([4,5,6]); hace todas las propiedades del objeto como readonly (un nivel muy shallow.)
+w = 10 no puedo
+w[0] = 10 tampoco.
+
+En stric mode tira error. En no stricto te ignora la operacion.
+
+Is there a way to unfrezze an object? no directamente. quizas modificar la propiedad readony...
+
+Si se busca mas inmutabilidad hay varias librerias.
+
+usar const es una eleccion. Elegímos no cambiar la referencia.
+
+Por valor: Las asignaciones son por copia del valor
+string
+boolean
+number 
+null
+undefined
+
+
+por referencia: por copia de referencia. copia la referencia al mismo array o objecto o funcion.
+arrays
+objects
+funcion
+
+
+Closure:
+function is when a function "remembers" the variables around it even when that function is executed elsewhere.
+
+
+function foo(x, y) {
+	return function () {
+		return x + y
+	}
+}
+
+
+var x =  foo(3,4)
+x(); Me da 7
+x(); Me da 7
+x(); Me da 7 siempre, porque por closure recuerda los valores iniciales. Esos es closure.
+
+
+Recursion.
+es una funcion que definis y se llama así misma, pero que queres que se pare de llamar a si misma cuando llega a un "caso base".
+Se invoca a si misma.
+
+Mutual recursion son 2 o mas funciones llamandose entre si hasta que llegan a un caso base.
+
+
+Problemas: que se asume que tenes unlimited cpu y memoria (No es así casi nunca).
+
+Cuando una funcion llama a otra o a si, la primera llamada de la funcion se guarda (Allocates) en memoria, lo que se llama Stack frame (Un lugar en memoria donde van todas las variables y estados y son almacenados momentaneamente ). Cuando la funcion termina de ejecutarse ese espacio en memoria se libera.
+
+Estos se van sumando y tomando memoria.
+Generalmente entre 10 y 15 por programa tenemos. Antes ie solo te aguantaba hasta 13.
+Tenes que tener una limitacion, porque sino se te apaga (En caso de dispositivos mobiles).
+Death of the call stack.
+
+Es muy facil llegar ahi en caso de recursion.
+
+Ahora el limite esta en 10000 maso.
+
+Hay una optimizacion en ES6.
+Tail call optimization:
+Si tengo una funcion que llama a otra.... revisar? como que te va liberando memoria si escribis a los ultimo de la funcion.
+
+
+repasar "argumnets" y el [].slice.call(arguments) diferencias?
+
+rest operator (or gather operator)  ...args  -> te pone todos los arguments en un array.
+
+slice no te cambia el array de origen. El splice si te lo cambia.
+
+check es6 book for propper tail calls.
+
+
+
+List transformation:
+"MAP". no hace falta especificar nada porque se puede llamar para todos los valores de una lista, incluso si no tiene valores.
+vas a terminar con una nueva lista con la misma cantidad de valores mapeando valores transformados.
+map lo que hace es aplicar una transformacion a una lista:
+
+function doubleIt(v) { return v * 2;}
+
+[1,2,3,4,5].map(doubleIt)
+
+Es un poco dificil de componer.
+Crea un nuevo array con la transformación aplicada. Si hacemos 2 maps se lo aplicariamos al nuevo array transformado.
+
+Exclusion: filter. sacar elementos de una lista.
+de nuevo produsco una nueva lista. es una inmutable operation.
+
+function isOdd(v) { return v % 2 === 1 }
+[1,2,3,4,5].filter(isOdd)
+
+List composition: reduce.
+Composition es cuando tomo 2 valores y surge uno nuevo. Ej: una suma, o multiplicacion.
+Puede usarse con valores o funciones
+Se puede hacer reduce in a non pure way. so.. ojo.
+
+Cuando pensas en composition tenes que pensar en el initail value, como en las sumas es 0 y en las mult es 1.
+
+full reduction: cambian todos los valores.
+Es posible que un reduce no se un full reduce,
+
+List iteracion: foreach. 
+No cambio nada? la unica forma que tendria sentido es si tuviera un side effect. Por eso te dicen que no las uses, pero a veces quiero map effects.
+Tambien podria itearar con el map.
+
+function logValue(v) { console.log(v);}
+
+[1,2,3,4,5].forEach(logValue)
+
+
+Excersices.
+Lo mas importante es tomar las funciones como parámentros, combinarlas, componerlas.
+Vas a tener un patron de funciones que te sirvan para tu aplicacion.
+
+How would you write tests obut compositions?
+
+
+
+Kyle.simpson  getify.me
+
+Podemos componer funciones puras entre si.
+Podemos volver pura una funcion inpura by wrapping it in another function.
+
+
+

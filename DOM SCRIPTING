@@ -116,7 +116,100 @@ pasar un valor por referencia o por valor.
 
 --------------
 
-Si yo paso un objeto a una funcion lo paso por referencia.
+Si yo paso un objeto a una funcion lo paso por REFERENCIA!
+Los primitives se pasan por valor, get a copy.
+
+No funca porque javascript no tiene block level scope.
+
+functions are first class: pode hacer lo mismo con una funcion que lo que haces con un object.
+cada vez que una funcion es creada en memoria tiene una prototype property que apunta a un objeto en memoria.
+
+Cda parte del call stack es llamado activation frame.
 
 
+------------
+this - contexto
+
+Reglas para determinar que es this:
+
+1) En caso de que ninguna regla aplique, va a ir al window:
+ej: [[call]] operator
+var bark =  function() {
+	
+}
+
+
+2) Si tenes un objeto con .nombreDeLaFuncion(), el this se setea al objeto que está a la izquierda del ".":
+
+Ej: 
+var puppy = {}
+puppy.bark(); si tengo un this adentro del metodo apunta al objeto que lo llamó.
+
+3) new keyword:
+Si invocas la funcion como si fuera un constructor con la new keyword,
+El contexto pasa a ser la nueva instancia:
+
+Ej: 
+var puppy = new Dog() -> el this es el "puppy"
+
+4) call y apply: HAcen lo mismo: invocan a una funcion con el contexto que vos especifiques.
+entonces el "this" va a ser lo que yo le pase como primer argumento.
+
+ej: 
+var puppy = {}
+Dog.bark.call(puppy,1,2,3...)
+
+sería: (context, arg1, arg2, arg3...)
+En apply sería lo mismo pero asi: (context, [arg1, arg2, arg3...])
+
+en js javascript functions do not know where they live.
+
+
+
+Method overloading, como no podes tener dos metodos llamados iguales en c#, le ponen 2 nombres diferentes.
+
+functions hjave prototypes ???? Está checkeado esto?
+Objects have __proto__  ????
+
+
+
+Prototypal Inheritance. -------------IMPORTANTE----------------
+
+
+Animal = function (name) {
+	this.name = name;
+}
+
+Animal.prototype.eats = function () {
+	return this.name + " is eating."
+}
+
+Explicacion:
+- Animal es un puntero a una funcion(Una variable). 
+- Animal.prototype es un puntero al objeto Animal que es creado cada vez que hago un new Animal
+- Animal.prototype.eats es una funcion dentro de ese objeto.
+
+Animal --> {fn} -->(prototype) Animal Prototype ---> eats -->{fn}
+
+Ahora, al hacer:
+var sponge = new Animal('bob')
+creo un nuevo objeto en memoria, el cual el __proto__ apunta al mismo objeto
+que apunta Animal.prototype .
+
+revisar slides con el ejercicio de herencia.
+
+
+Al hacer new:
+//Create new object
+//Set new object's to __proto__ to cronstructor's prototype
+//Invoke our constructor with out new object as context
+// return the new object.
+
+
+NEW = function (constructor, args) {
+	var p = {};
+	o.__proto__ = constructor.prototype;
+	constructor.apply(o, args);
+	return o;
+}
 
