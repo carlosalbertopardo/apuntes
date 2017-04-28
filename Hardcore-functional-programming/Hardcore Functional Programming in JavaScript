@@ -164,3 +164,15 @@ var yearOlder = compose(map(add(1)), determineAge)
 
 
 IO
+
+
+
+
+Cosas para importar en tu proyecto:
+- Ramda
+- baconjs
+- fantasy land 
+- DrBoolean / pointfree-fantasy
+- folktale
+
+github.com/begriffs/immutube
