@@ -1,0 +1,24 @@
+webpack2
+
+cosas que se necesitan:
+-git
+-node
+-npm
+
+
+En proyectos donde tengo un monton de script tags, tener en cuenta que tienen que ir cargando en orden.
+
+todo pasa a ser un modulo: css, js, html, imagenes... y todo puede ser una dependencia de otra cosa.
+
+loaders es por donde pasa para convertirse en js o css  // transpiling
+
+ej:  ES6 -> babel -> JS
+     Css Modules -> css loader -> CSS
+     img -> otro webpackloader -> base64
+
+
+pluggins: hacen el resto.
+- lodash -> 
+- dedupePlugin
+
+

@@ -1,0 +1,22 @@
+- ES6 + babel
+- ampersand
+- react as a view layer.
+- autoprefixer-stylus (-moz -webkit)
+
+
+isomorfic js: que no solo trabaja en el browser.
+
+//
+Pasos 
+1) crear un acarpeta
+2) npm start y confirguración básica
+3) -- instalar webpack con node.
+4) crear el webpack.config.js
+
+var getConfig =  require('hjs-webpack')
+
+module.exports = getConfig({
+	in: 'src/app.js',   --> punto de inicio de la aplicacion
+	out: 'public',  --> a donde va a ir todo lo compilado
+	clearBeforeBuild: true --> limpiar todo cuando se rebuildea
+})

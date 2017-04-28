@@ -1,0 +1,166 @@
+Hardcore Functional Programming in JavaScript
+
+
+
+1) User pure functions
+2) high order funcitons (Functions as parámeters)
+3) Don't iterate: use map, reduce, filter.
+4) Avoid mutability.
+5) Use persistent data structures to avoid copies of everything due to inmutability. STRUCTURAL SHARING! (mori, inmutable.js, underscore, lodash, ramda)
+
+https://www.youtube.com/watch?v=e-5obm1G_FY
+https://codewords.recurse.com/issues/one/an-introduction-to-functional-programming
+
+
+----------------------------
+
+
+Omit needless names?
+
+
+Separate mutation from calculation.
+
+Hay funciones que lo unico que hacen es calcular algo y hay otras que reemplazan cosas en el ambiente (DOM).
+
+Recognize pure functions:
+Que no cambia nada afuera de ella.
+-Las hace mas testeables.
+-Mas portables.
+-Mas memorizables.
+-Mas parallelizables, no importa cual esta corriendo en que tiempo.
+
+Si su argumento es impuro, la funcion se vuelve impura.
+
+
+Separate Functions from rules.
+
+
+Currying??? excersice.
+
+
+
+Compose.
+
+function compose(g,f) {
+	return function(x) {
+		return g(f(x));
+	}
+}
+
+
+Point Free.  Points mean arguments.  "Argument free"
+
+
+
+
+Objetos:
+- se lo piensa como contenedores/wrappers para valores.
+- sin metodos.
+- sin nouns.
+- no vamos a estar haciendo nuestros objetos muy seguido.
+
+
+Objects
+
+FUNCTORS!!!
+
+A functor is any object or data structura you can map over.
+Is an object that has a map method.
+
+
+
+//Wraps element into an object
+var _Container = function(val) {
+	this.val = val;
+}
+
+var Container =  function(x) { return new _Container(x);}
+
+Container(3) -> _Container {val: 3}
+
+capitalize("framethrower") -> "Framethrower";
+capitalize(Container{"framethrower"}) -> [object Object];
+
+
+var _Container.prototype.map = function (f) {
+	return Container(f(this.val))
+}
+
+Container("flamethrower").map(function (s) {
+	return capitalize(s)
+})
+
+O puedo hacer:  Container("flamethrower").map(capitalize) -> Container("Framethrower");
+
+Container(3).map(add(1)); -> Container(4)
+[3].map(add(1)); [4]
+
+
+Container([1,2,3]).map(reverse).map(first);
+// esto es Container(3)
+
+Container("flamethrower").map(lenght).map(Add(1))
+// esto es Container(13)
+
+var map = _curry(function (f, obj) {
+	return obj.map(f)
+})
+
+//Container(3).map(add(1)); -> Container(4)
+//map(add(1), Container(3)) -> Container(4)
+
+COMPOSITION, BITCH!
+
+map(match(/cat/g),Container("catsup")) -> Container(["cat"]);
+map(compose(first, reverse), Container("dog")) -> container("g");
+
+-----
+
+Null mybe functor -> checkea si no se pasaron los parametros posta de la funcion, osea, si  no tira null y te corta todo
+Null check -> mayb functor.
+
+/*
+var getElement = document.querySelector;
+var getNameParts =  compose(split(''), get('value'),getElement)
+getNameParts('#full_name'); -> ['Jonathan', 'Gregory', 'Brandis']; */
+
+var _Maybe.prototype.map = function (f) {
+	return this.val ? Maybe(f(this.val)): Maybe(Null);
+}
+
+map(capitalize, Maybe(null)) -> Maybe(null)
+
+
+var firstMatch = compose(first, match(/cat/g));
+firstMatch('dogsup') -> esto me explota porque no puedo hacer firstMatch de null (No le pase nada como segundo argumento).
+
+var firstMatch = compose(map(first), Maybe, match(/cat/g)); -> tengo que hacer un mapeo en Maybe -> (map(Maybe(null)))
+firstMatch('dogsup')
+
+Containeres are called "identity";
+
+
+EITHER
+es como un maybe pero para manejo de errores.
+tiene 2 subclases left/right
+
+map(function (x) {
+	return( x + 1)
+}, right(2))  -->> me da Right(3);
+
+map(function (x) { retunr x +1;}, left('Some Message')); -->> Left('some message');
+
+
+-------------
+
+var determineAge = function(user) {
+	return user.age ? Right(user.age) : Left('Couldn't get age');
+}
+
+var yearOlder = compose(map(add(1)), determineAge)
+
+// yearOlder({age:22}) -->> Right(23);
+// yearOlder({age:null}) -->> Left('Couldn't get age')
+
+
+IO

@@ -1,0 +1,11 @@
+Complete introduction to react.
+
+1) Instalar node +6
+
+Yarn-> reemplazaria npm para hacer installs
+Permite instalar dependencias en cualquier orden que vos quieras en cualquier momento que vos quieras. Y es mas rapido.
+Está muy bueno para hacer aplicaciones (No tanto para librerias).
+
+
+
+
