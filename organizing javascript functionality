@@ -1,0 +1,36 @@
+
+
+Modules
+Es el patron de diseño mas importante de javascript
+
+Testing:
+Whitebox testing: with complete knoledge of the inside (from inside)
+Blackbox testing: sin saber lo que hay dentro (from outside)
+
+Read book "Eloquent javascript".
+
+Lo que retorno en el modulo es lo que seria la public api del modulo (Aplication programming interface)
+
+Public vs private.
+Diferencia de accesibilidad en modo de ejecucion.
+las privadas no son accesibles desde el mundo exterior.
+
+javascript is case COMPLETELY sensitive. All identifies are case sensitive.
+
+
+Document ready: el dom terminó de cargar.
+
+
+rel="no-follow" -> no hay relacion entre la pagina a la que estoy yendo ni la mia. no hagas nada.
+re="stylesheet" -> la relacion es que quiero usar ese archivo como mi stylesheet.  se usa en el link.
+
+Puedo usar rel para en divs para llamarlo en js. $()
+
+
+Event bubleling si clickeo en uno de sus elementos. y ese no tiene ningún evento, busca en el padre.
+
+
+event.stopInmediatePropagation?
+
+DEBUGGER!!! -> es como poner el console.log(en js); Muy bueno para ver variables locales.
+

@@ -1,0 +1,64 @@
+Flexbox - CSS
+
+
+display: flex -> al contenedor (tambien existe inline-flex)
+
+Cuando le ponemos display flex, sus elementos pasan a ocupar el 100% de altura del contenedor.
+
+
+
+autoprefix css de sublime.
+
+
+
+Flex-direction: -> row, column, row-reverse , column reverse.
+flex-wrap_ -> no-wrap, wrap, wrap-reverse. Si se caen o no. Si le pones no-wrap, no se caen pero alcanzan lo maximo que pueden. (No respeta el width de cada elemento.)
+
+flex-flow: valor1(flex-direction),valor2(flex-wrap)  -> es un atajo de lo anterior.
+
+
+
+justify-content: (como distribuir el espacio libre.)
+   -flex-start,
+   -flex-end (se pociciona todo a la derecha),
+   -center, centra todo nuestros elementos.
+   -space-around (espacio entre los elementos)
+   -space-between (Sin margenes al final)
+
+align-items: pocisionar los elementos verticalmente
+   -flex-start,
+   -flex-end (se pociciona todo a la derecha),
+   -center, centra todo nuestros elementos.
+   -stretch, estira todo al el 100% del contenedor (height auto)
+   -baseline. Posiciona todos los elementos cosa que LA LINEA DE LA FUENTE QUEDAN EN EL MISMO LUGAR
+
+align-content: es como align items pero para alinear grupos. El items es para elementos que esten solo en una fila o columna
+ Recibe los mismo valores que align items.
+This can be confusing, but align-content determines the spacing between lines, while align-items determines how the items as a whole are aligned within the container. When there is only one line, align-content has no effect.
+
+
+
+PROPIEDADES DE LOS ELEMENTOS DE ADENTRO:
+-flex-basis:  es un sinonimo de width o height, dependiendo de si estamos en columnas o filas. Si pasamos de rows a columnas se adapta automáticamente.
+
+-flex-grow: 1 , Todos nuestros elementos van a tomar el tamaño necesario para que abarque el 100% del contenedor.
+Si se lo pongo a otro:  con 2, la proporcion de lo que ocupa en el 100% del contenedor.
+
+-flexshrink: lo mismo que grow pero alreves.
+
+
+atajo: flex: (flex-grow),(flex-shrink),(flex-basis):
+
+Ejemplo:
+flex-grow:1;
+flex-shrink:1;
+flex-basis:150px;
+
+Es lo mismo que:
+flex: 1 1 150px;
+
+Cambiar el orden de los elementos:
+
+order: 1  (Ele elmento se pone en el primer lugar.)
+
+align-self: para alinear un elemento solo.

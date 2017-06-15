@@ -1,0 +1,121 @@
+
+Install drupal
+
+Video: https://www.youtube.com/watch?v=AQCIO5eGIJc
+
+ANTES QUE NADA:
+En el archivo xammp/drupal-8
+
+
+Crear una base de datos en localhost/phpmyadmin.
+ej: drupal8test
+
+Bajar los archivos de drupal 8 desde la pag oficial (es un zip de aprox 22 megas)
+
+Copiar los archivos de drupal en una carpeta en c://xammp/htdocs
+ej: c://xammp/htdocs/drupal-8
+
+abrir: localhost/drupal-8 y empezar a seguir los pasos de la instalacion:
+
+- Poner en idioma ingles
+
+
+
+
+
+"PHP OPCODE CACHING NOT ENABLED" ?????
+PHP OPcode caching can improve your site's performance considerably. It is highly recommended to have OPcache installed on your server.
+
+
+------------------------------------
+
+
+PANTHEON:
+
+Website managment platform.
+organize sites.
+automates sysadmin tasks
+uses version control
+se puede usar git.
+
+CREAR UNA CLAVE SSH y ponerla en el dashboard de pantheon.
+ssh key. Secure shell key: you get a private key and a public.
+
+Para generar una clave:
+ssh-keygen
+
+
+2 crear un sitio:
+Directamente lo creas desde 0 y haces un deploy de drupal 8 clikeando en la opcion.
+
+3 cosas para crear un sitio drupal:
+core: 
+database:
+files: default files.
+
+Para importarlo a pantheon.
+Drupal tiene que estar en el root directory.
+Files must be located at sites/default/files
+Size restriction:
+<100mb  use dashboard UI to upload
+<500mb enter remote URL for archive location
+>500mb create a site and the sync components.
+
+
+
+IMPORT A DRUPAL PROJECT TO PANTHEON.
+Create a site archive to import files to pantheon.
+
+Cosas de hacer:
+
+1)Cambiar el sitio a modo de mantenimiento
+Configuration / development / "put se site in maintenace mode"
+2)Limpiar cache.
+Configuration / development / performance / "clear all the caches"  -> se puede hacer con drush drush cc all
+
+3)Tenes que tenes instalado "backup" y "migrate" y enabled.
+https://www.drupal.org/project/backup_migrate.
+
+despues vas a system / backup y migrate.
+Quick backup / Hacer un backup del sitio entero con la base tambien y apretar Backup now.
+Esto te genera un archivo .tar con TODO.
+
+Si queremos hacer lo mismo con drush:
+"drush archive-dump --destination="/Users....rutadondeloquierometer"  or "drush ard"  -> lo guarda en el lugar de default
+
+4) Importar el archivo que generamos en pantheon.
+En pantheon: 
+- Crear un sitio nuevo en el dashboard.
+- En lugar de empezar de 0 ponemos "import files".
+- si el file es muy chiquito lo subis ahi directamente.
+- Si es medio grande usas el metodo de "url": tenes que subirlo a algun lugar como "dropbox", no podes tenerlo en local.
+- Si usamos dropbox, tenemos que cambiar el final de la url "dl-0" a "dl-1" para que agarre los archivos, sino sería la pagina.
+Y listo, ya está importado.
+
+
+
+BASIC WORKFLOW
+Tenes 3 enviroments: dev, test y live.
+Cada uno son 3 copias diferentes del site, pero si haces un cambio en uno se refleja en el otro.
+Hay una UI para merge
+
+Codes goes up (dev - test - live) and content goes down (live - test - dev);
+
+Tenes 2 modos de acceder al codigo
+1) secure file transfer protocole ( es el default, con un ftp)
+2) git y ssh keys que tenes que tener.
+
+
+Crear el enviroment de test:
+-Clickeas en test:
+  - La primera vez te hace un clone de todo lo que esta en dev.
+
+
+Para crear un live, Primero tenes que crear un test enviroment.
+
+
+
+
+
+Check for updates automatically?????
+
