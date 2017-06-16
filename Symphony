@@ -1,0 +1,49 @@
+Es un MVC.
+
+
+
+Tiene un analisis de la performance de request en el panel.
+
+Fue el primero en hacer django en php (django es phyton)
+
+modelo
+vistas
+controladores
+servicios
+
+Todos los modulos que instales de symphony traen servicios que hay que saber como integrarlos.
+2 "bundles" importantes: en symphony todo es un bundle.
+- FOS users (Friends of symphony) para manejo de usuarios, seguridad, entidad por defecto y 
+- Easy admin -> es un panel de administracion que provee una guia de todas las entidades (SonataAdmin es mas flexible pero tenes que crearle las vistas
+
+Una entidad es una clase que tiene poca funcionalidad que representa una tabla en la Base de Datos.
+
+Twig es el motor de templating.
+
+Los bundle pueden ser cualquier cosa: 
+un sitio.
+un pedaso de codigo con funcionalidad.
+
+
+Estructura:
+APP, cosas globales y la lista de servicios
+APP/Resourses ,En resourses se configuran templates globales: ej 404 page.
+APP, config  -> parameters.yml   todas las configuracion de base de datos y mail. La idea es que puedas consumir esa info desde otros archivos .yml. Osea que creas la variable y la llamas con %VARIABLE%
+Los paramentes los puedo definir en el lugar que quiera y te los agrega al array parameters.
+
+
+Las rutas se manejan con yml.
+
+Las annotations se usan para configurar una clase.
+
+El @ me indica que es un bundle.
+
+
+security .yml : manejamos los permisos.
+
+salt : forma de evitar problemas de seguridad por fuerza bruta.
+se genera automaticamente, es unico como usuario y se utiliza como parte de la encriptación de la información. El salt es secreto, nunca llega a la pantalla.
+
+confirmation token, se va a usar para el reset password.
+
+Kernel es el core de symphone. 

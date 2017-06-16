@@ -1,0 +1,13 @@
+Drupal enviroment
+
+Setear en equipo en pantheon.
+
+Drush, te permite hacer todo lo que hace drupal pero por linea de comando.
+
+
+Clonar el repo:
+git clone ssh://codeserver.dev.98bb6502-5024-4565-8bf0-b5a1c6a1814e@codeserver.dev.98bb6502-5024-4565-8bf0-b5a1c6a1814e.drush.in:2222/~/repository.git dell-webcast
+
+Hay que instalar un virtual host.
+
+settings php es el settings global
