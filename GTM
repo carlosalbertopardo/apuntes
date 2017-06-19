@@ -1,0 +1,69 @@
+GTM 
+
+
+Tenes que tener usuario con permisos.
+joaquin.diaz@wunderman.com  -> hay que loguearse en gmail.
+
+https://tagmanager.google.com
+analytics.google.com -> almacena las estadisticas.
+
+
+Proceso:
+
+- Te pasan unas urls:
+- verificar de que proyecto es cada url, de que brand es para saber en que c
+
+verificar dentro de que account vas a configurar todo (lo que contiene a los container).
+Adentro de los accounts(el titulo celeste), estan los cantainers.
+cada container tiene un gtm id.
+
+AHora:
+Importamos un json default con las configuraciones basicas en los container que esten vacios y poder hacer esto:
+2- Add Variable for gaProperty in "Variables" 
+3- Create GA Tracking tag, utilizing the gaProperty and the data Layer Custom dimensions
+4- Set up the firing trigger to deploy on "All Pages"
+
+
+entras al container default y pongo export container
+chose a version or workspace, siempre default.
+si hay conflictos consultar con joanna para que lo fixee.
+exportamos.
+se te baja un json a la pc.
+entro al que quiero configurar y lo importo desde admin, import container.
+workspace, existing, default.
+seleccionar "merge" y la opcion overwhrite conflicting tags, triggers and variables.
+confirm
+listo
+
+ahora en overview te aparece todo.
+
+el ga property es una variable que le dice al container que property del google analitycs tiene que usar para almacenar la data.
+buscar el valor(numerito) en google analitycs y ponerlo en el ga property.
+
+
+/-----/
+Analitics debug.
+Container CATCH-ALL:
+GTM-N22GL4 es un id default que se le dicen default. cualquier url que no tenga ninguna configuracion se le pone este catch all.
+
+LA cosa es asi.
+Yo tengo que poner en vignette un contenedor con el gtm id. el gtm id relaciona la pag con gtm y despues en gtm con la property le digo en donde de google analitycs quieren guardar las estadisticas.
+
+[URL] + ?analyticsDebug
+
+En vignette en /Sites/AnalyticsConfigs/Home/v1
+es donde se configura gtm.
+
+nos metemos en la carpeta donde tenemos que crear.
+Creamos un dataLayer. y ahi tengo que agregar la url que nos nos devuelve el analitycs debug. 
+/ColgateTotal/v5//ZA/.* -> ejemplo   . Al final siempre va.*
+le pones una position. el que tiene menos position tiene prioridad.
+
+agregar a la deply list una instancia de contenido.
+
+ahora creo una nueva instancia de contenido analitycsconfig.
+el template es siempre el mismo, body y name.
+Lo creo con el mismo nombre que el anterior pero que empiece con "GTM-"
+se agrega la misma regex .*  
+en "varialbes" pongo gtmid="GTMIDPOSTAPOSTA"
+
