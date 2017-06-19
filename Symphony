@@ -47,3 +47,13 @@ se genera automaticamente, es unico como usuario y se utiliza como parte de la e
 confirmation token, se va a usar para el reset password.
 
 Kernel es el core de symphone. 
+
+xampp
+Symphony
+Tener php por consola, hay que setear la variable de entorno seteando el php nuevo.
+
+Bajar la ultima version de symfony.
+seguir los pasos.
+
+
+http://ec2-54-232-93-180.sa-east-1.compute.amazonaws.com/mmagallon/butterball-emailtracking.git
