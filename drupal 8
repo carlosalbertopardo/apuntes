@@ -38,20 +38,77 @@ automates sysadmin tasks
 uses version control
 se puede usar git.
 
-CREAR UNA CLAVE SSH y ponerla en el dashboard de pantheon.
+INSTALACION DE UN AMBIENTE EN PANTHEON:
+
+1) CREAR UNA CLAVE SSH y ponerla en el dashboard de pantheon.
 ssh key. Secure shell key: you get a private key and a public.
 
 Para generar una clave:
 ssh-keygen
 
-
-2 crear un sitio:
-Directamente lo creas desde 0 y haces un deploy de drupal 8 clikeando en la opcion.
-
+2) crear un sitio:
+Directamente lo creas desde 0 y haces un deploy de drupal 8 clikeando en la opcion que te da pantheon.
 3 cosas para crear un sitio drupal:
 core: 
 database:
 files: default files.
+
+
+3) Una vez que se crea la instancia tenes que hacer la instalación en el ambiente de dev.
+
+4) Una vez instalado en dev, debemos instalar el ambiente local, por lo que hacemos un clone con git y bajamos el repositorio.
+-Cuando bajemos nos va a pedir la clave ssh
+-En windows tenemos que hacerle el clone en la carpeta de xampp/htdocs
+-Ahora que tenemos los archivos vemos que si abrirmos la ruta nos aparece la pantalla de instalacion.
+Para combiar estos tenemos que hacer algunas confirguraciones mas:
+
+5) Tenemos que configurar un virtual host:
+- primero vamos a C:\Windows\System32\drivers\etc\hosts.txt
+- agregamos una nueva linea sin el numeral (El numeral significa que esta comentada)
+- una nueva ruta seria: 	127.0.0.1       gameofthronestestsite.local
+
+6) para terminar de configurar el virtual host tenemos que acceder a otro archivo:
+- Abrimos el archivo: C:\xampp\apache\conf\extra\httpd-vhosts.conf
+-Agregamos nuestro nuevo virtual host con el siguiente formato:
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/gameofthronestestsite"
+    ServerName gameofthronestestsite.local
+    ServerAdmin carlos.pardo@wunderman.com
+    <Directory "C:/xampp/htdocs/gameofthronestestsite">
+        AllowOverride All
+        Require all granted
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+- Listo, ya con esto tenemos configurado nuestro nuevo virtual host
+
+
+7) Despues tenemos que hacer una configuracion de drupal:
+- Vamos a la carpeta del proyecto.
+- En la ruta C:\xampp\htdocs\gameofthronessite\sites\default.
+- Creamos un nuevo archivo que se llame settings.local.php 
+- Copiamos todo el contenido del archivo example.settings.local.php y lo metemos en settings.local.php
+- Adentro del archivo settings.local.php tenemos que meter la configuración de la base que vayamos a usar
+
+$settings['hash_salt'] = 'hash';
+
+$databases['default']['default'] = array (
+	'database' => 'gotdrupal8',
+	'username' => 'root',
+	'password' => '',
+	'host' => 'localhost',
+	'port' => '3306',
+	'driver' => 'mysql',
+	'prefix' => '',
+	'collation' => 'utf8mb4_general_ci',
+);
+
+
+- Listo. Reiniciamos el servidor y ya tendría que estar todo funcionando.
+
+
 
 Para importarlo a pantheon.
 Drupal tiene que estar en el root directory.
@@ -94,7 +151,15 @@ Y listo, ya está importado.
 
 
 
+5) Una vez insta
+
+
+
+
 BASIC WORKFLOW
+
+
+
 Tenes 3 enviroments: dev, test y live.
 Cada uno son 3 copias diferentes del site, pero si haces un cambio en uno se refleja en el otro.
 Hay una UI para merge
@@ -112,8 +177,6 @@ Crear el enviroment de test:
 
 
 Para crear un live, Primero tenes que crear un test enviroment.
-
-
 
 
 
