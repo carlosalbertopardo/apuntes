@@ -182,3 +182,77 @@ Para crear un live, Primero tenes que crear un test enviroment.
 
 Check for updates automatically?????
 
+
+
+HAY QUE INSTALAR COMPOSER Y DRUSH (DRUPAL BASH)
+Es una consola para manejar drupal desde la linea de comando.
+1) instalas composer desde la pagina
+2) vas a una consola y corres "composer" para ver si se instaló bien
+
+CASO DE ERROR:
+"cuando quiero hacer cualquier cosa con composer me tira:
+chmod(): no such file or directory
+
+Esto tiene que ver con la carpeta temporaria de windows.
+hay que configurar (por lo pronto) el TEMP de Xampp que es donde tenes permisos de escritura
+abri el php.ini (/xampp/php/php.ini)
+del XAMPP
+Cambiar la ruta de sys_temp_dir. Que quede así: (sin el ;) 
+sys_temp_dir = "C:\xampp\tmp"
+
+3) hay que instalar drush globalmente -> composer global require drush/drush:8.*
+4) ahora ejecutas "drush status" dentro de la carpeta del proyecto para ver si te dice algo.
+
+CASO DE ERROR:
+si no te dice “not found"
+corre este comando:
+composer global require drush/drush:8.*
+y dps configuras el path
+te lo tiene que instalar por acá
+C:/Users/[user name]/AppData/Roaming/Composer/vendor/drush/drush
+asi que … una vez que valides la ruta de Windows donde lo metio
+lo metes en el PATH de windows
+boton derecho en MI PC, etc
+si tenias una terminal abierta
+vas a tener que cerrar y abrir
+para que tome los cambios
+del PATH
+
+
+INTRODUCCION A LOS COMANDOS DE DRUSH.
+
+
+
+-----------------DRUPAL------------------
+
+Structure -> se puede hacer un managment de los fields.
+Podemos crear nuevos tipos de contenido MANAGE FIELDS
+
+Field type es la data que va a ser almacenada en la DB
+El widget es como lo va a ver el usuario.
+Para hacer mas customizaciones tenemos que ir a MANAGE DISPLAY.
+
+Cada field tines 6 formas diferentes de mostrarse (View modes.. full content.. teaser.. rss.. y demas)
+Podes customizar como se muestra cada field en cada vista.
+
+Se pueden compartir los tipos de datos o no. A veces tiene sentido, a veces no.
+
+
+THEMING  GUIDE
+
+Donde se pone el theme asi las puede encontrar.
+
+Archivos del theme.
+
+para localizar el theme, tiene que estar
+
+root/core/themes -> aca estan los basicos.
+root/themes
+root/themes/contrib
+root/themes/custom  -> aca van los themes custom.
+
+
+archivos yml tenes las configuraciones y metadata para el theme. 
+twig  va el html
+
+
